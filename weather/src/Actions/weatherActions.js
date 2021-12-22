@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const changeCity = (city) => {
   return (dispatch) => {
-    return dispatch(getWeatherByCity(city)); // get me weather
+    return dispatch(getWeatherByCity(city));
   };
 };
 
 export const getWeatherByCity = (city) => {
-  const apiid = "fa5e939c1cee10ab9e2651a73c68ade5";
+  const apiid = 'fa5e939c1cee10ab9e2651a73c68ade5';
   return (dispatch) => {
     axios
       .get(
@@ -15,10 +15,14 @@ export const getWeatherByCity = (city) => {
       )
       .then((response) => {
         dispatch({
-          type: "CHANGE_CITY",
+          type: 'CHANGE_CITY',
           payload: { city: response.data.name },
         });
+        dispatch({
+          type: 'CHANGE_WEATHER',
+          payload: { weather: response.data.main },
+        });
       })
-      .catch((err) => console.log("not valid city", err));
+      .catch((err) => console.log('not valid city', err));
   };
 };
